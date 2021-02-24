@@ -1,1 +1,3 @@
 # nubug
+
+Shows some code and progress in fixing various nushell issues...
