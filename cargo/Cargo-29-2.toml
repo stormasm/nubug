@@ -1,0 +1,97 @@
+[package]
+authors = ["The Nu Project Contributors"]
+default-run = "nu"
+description = "A new type of shell"
+documentation = "https://www.nushell.sh/book/"
+edition = "2018"
+exclude = ["images"]
+homepage = "https://www.nushell.sh"
+license = "MIT"
+name = "nu"
+readme = "README.md"
+repository = "https://github.com/nushell/nushell"
+version = "0.29.2"
+
+[workspace]
+members = ["crates/*/"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+nu-cli = { version = "0.29.2", path = "./crates/nu-cli", default-features = false }
+nu-command = { version = "0.29.2", path = "./crates/nu-command" }
+nu-data = { version = "0.29.2", path = "./crates/nu-data" }
+nu-engine = { version = "0.29.2", path = "./crates/nu-engine" }
+nu-errors = { version = "0.29.2", path = "./crates/nu-errors" }
+nu-parser = { version = "0.29.2", path = "./crates/nu-parser" }
+nu-plugin = { version = "0.29.2", path = "./crates/nu-plugin" }
+nu-protocol = { version = "0.29.2", path = "./crates/nu-protocol" }
+nu-source = { version = "0.29.2", path = "./crates/nu-source" }
+nu-value-ext = { version = "0.29.2", path = "./crates/nu-value-ext" }
+
+# Required to bootstrap the main binary
+clap = "2.33.3"
+ctrlc = { version = "3.1.7", optional = true }
+futures = { version = "0.3.12", features = ["compat", "io-compat"] }
+itertools = "0.10.0"
+log = "0.4.14"
+pretty_env_logger = "0.4.0"
+
+[dev-dependencies]
+nu-test-support = { version = "0.29.2", path = "./crates/nu-test-support" }
+dunce = "1.0.1"
+serial_test = "0.5.1"
+hamcrest2 = "0.3.0"
+
+
+[build-dependencies]
+
+[features]
+ctrlc-support = ["nu-cli/ctrlc", "nu-command/ctrlc"]
+directories-support = [
+    "nu-cli/directories",
+    "nu-cli/dirs",
+    "nu-command/directories",
+    "nu-command/dirs",
+    "nu-data/directories",
+    "nu-data/dirs",
+    "nu-engine/dirs",
+]
+ptree-support = ["nu-cli/ptree", "nu-command/ptree"]
+rustyline-support = ["nu-cli/rustyline-support", "nu-command/rustyline-support"]
+term-support = ["nu-cli/term", "nu-command/term"]
+uuid-support = ["nu-cli/uuid_crate", "nu-command/uuid_crate"]
+which-support = [
+    "nu-cli/ichwh",
+    "nu-cli/which",
+    "nu-command/ichwh",
+    "nu-command/which",
+    "nu-engine/which",
+]
+
+default = [
+    "nu-cli/shadow-rs",
+    "directories-support",
+    "ctrlc-support",
+    "which-support",
+    "term-support",
+    "rustyline-support",
+]
+
+stable = ["default"]
+
+trace = ["nu-parser/trace"]
+
+#This is disabled in extra for now
+table-pager = ["nu-command/table-pager"]
+
+[profile.release]
+#strip = "symbols" #Couldn't get working +nightly
+codegen-units = 1 #Reduce parallel codegen units
+lto = true #Link Time Optimization
+opt-level = 'z' #Optimize for size
+
+# Main nu binary
+[[bin]]
+name = "nu"
+path = "src/main.rs"
