@@ -82,14 +82,15 @@ stable = ["default"]
 
 trace = ["nu-parser/trace"]
 
+trash-support = [
+    "nu-cli/trash-support",
+    "nu-command/trash-support",
+    "nu-engine/trash-support",
+]
+zip-support = ["nu-cli/zip", "nu-command/zip"]
+
 #This is disabled in extra for now
 table-pager = ["nu-command/table-pager"]
-
-[profile.release]
-#strip = "symbols" #Couldn't get working +nightly
-codegen-units = 1 #Reduce parallel codegen units
-lto = true #Link Time Optimization
-opt-level = 'z' #Optimize for size
 
 # Main nu binary
 [[bin]]
