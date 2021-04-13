@@ -2,6 +2,8 @@
 These are minimal Cargo files that DO NOT
 have plugins or features.  Just the core build.
 
+Cargolite.toml is the latest version.
+
 This is a description of the changes to the Cargo.toml
 file that happen to minimize the file...
 
