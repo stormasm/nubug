@@ -8,9 +8,9 @@ Here are places where issues could be located.
 
 Where is *LineResult* referenced ?
 
-nu-cli/src/cli.rs
-nu-cli/src/line_editor.rs
-nu-engine/src/script.rs
+* nu-cli/src/cli.rs
+* nu-cli/src/line_editor.rs
+* nu-engine/src/script.rs
 
 
 In cli.rs when this happens --- when a **LineResult::Error** happens WHY is is the history updated ?  It seems to me that we should not be adding a history entry if an ERROR occurs.
