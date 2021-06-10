@@ -25,4 +25,21 @@ LineResult::Error(line, err) => {
     }
 ```
 
+In cli.rs the 2nd arm of this match statement could be the cause of an error as well...
+
+```.rust
+let line = match convert_rustyline_result_to_string(readline) {
+    LineResult::Success(_) => process_script(
+        &session_text[line_start..],
+        &context,
+        false,
+        line_start,
+        true,
+    ),
+    x => x,
+};
+```
+
+
+
 #### The history -c -clear command is also broken
